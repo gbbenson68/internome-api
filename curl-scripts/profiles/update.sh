@@ -28,11 +28,11 @@ BASE_URL=${1}
 # echo "PROF_MINTEMPO = ${PROF_MINTEMPO}"
 # echo "PROF_MAXTEMPO = ${PROF_MAXTEMPO}"
 
-#   --header "Authorization: Bearer ${PROF_TOKEN}" \
 curl "${BASE_URL}/profiles/${PROF_ID}" \
   --include \
   --request PATCH \
   --header "Content-Type: application/json" \
+  --header "Authorization: Bearer ${PROF_TOKEN}" \
   --data '{
     "profile": {
       "name": "'"${PROF_NAME}"'",

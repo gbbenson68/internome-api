@@ -19,18 +19,18 @@ fi
 
 BASE_URL=${1}
 
-echo "BASE_URL = ${BASE_URL}"
-echo "PROF_NAME = ${PROF_NAME}"
-echo "PROF_TOKEN = ${PROF_TOKEN}"
-echo "PROF_DURATION = ${PROF_DURATION}"
-echo "PROF_MINTEMPO = ${PROF_MINTEMPO}"
-echo "PROF_MAXTEMPO = ${PROF_MAXTEMPO}"
+# echo "BASE_URL = ${BASE_URL}"
+# echo "PROF_NAME = ${PROF_NAME}"
+# echo "PROF_TOKEN = ${PROF_TOKEN}"
+# echo "PROF_DURATION = ${PROF_DURATION}"
+# echo "PROF_MINTEMPO = ${PROF_MINTEMPO}"
+# echo "PROF_MAXTEMPO = ${PROF_MAXTEMPO}"
 
-#   --header "Authorization: Bearer ${PROF_TOKEN}" \
 curl "${BASE_URL}/profiles" \
   --include \
   --request POST \
   --header "Content-Type: application/json" \
+  --header "Authorization: Bearer ${PROF_TOKEN}" \
   --data '{
     "profile": {
       "name": "'"${PROF_NAME}"'",

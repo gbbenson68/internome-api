@@ -19,7 +19,7 @@ BASE_URL=${1}
 
 curl "${BASE_URL}/profiles" \
   --include \
-  --request GET #\
-#  --header "Authorization: Bearer ${PROF_TOKEN}"
+  --request GET \
+  --header "Authorization: Bearer ${PROF_TOKEN}"
 
 echo

@@ -22,7 +22,7 @@ BASE_URL=${1}
 
 curl "${BASE_URL}/profiles/${PROF_ID}" \
   --include \
-  --request DELETE #\
-#  --header "Authorization: Bearer ${PROF_TOKEN}"
+  --request DELETE \
+  --header "Authorization: Bearer ${PROF_TOKEN}"
 
 echo
