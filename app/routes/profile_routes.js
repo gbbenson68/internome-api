@@ -13,7 +13,7 @@ const customErrors = require('../../lib/custom_errors')
 const handle404 = customErrors.handle404
 const requireOwnership = customErrors.requireOwnership
 
-// const removeBlanks = require('../../lib/remove_blank_fields')
+const removeBlanks = require('../../lib/remove_blank_fields')
 const Profile = require('../models/profile')
 
 // Create a user profile
@@ -38,6 +38,16 @@ router.get('/profiles', requireToken, (request, response, next) => {
     .then((profiles) => {
       return profiles.map((profile) => profile.toObject())
     })
+    // Need to ONLY return those profiles belonging to given user, no others. 
+    .then((profiles) => {
+      const newProfiles = []
+      profiles.forEach((profile) => {
+        if (JSON.stringify(profile.owner) === JSON.stringify(request.user.id)) {
+          newProfiles.push(profile)
+        }
+      })
+      return newProfiles
+    })
     .then((profiles) => response.status(200).json({ profiles }))
     .catch(next)
 })
@@ -46,12 +56,19 @@ router.get('/profiles', requireToken, (request, response, next) => {
 router.get('/profiles/:id', requireToken, (request, response, next) => {
   Profile.findById(request.params.id)
     .then(handle404)
+    .then((profile) => {
+      // it will throw an error if the current user isn't the owner
+      requireOwnership(request, profile)
+
+      // Otherwise return existing profile
+      return profile
+    })
     .then((profile) => response.status(200).json({ profile: profile.toObject() }))
     .catch(next)
 })
 
 // Update a given user profile
-router.patch('/profiles/:id', requireToken, (request, response, next) => {
+router.patch('/profiles/:id', requireToken, removeBlanks, (request, response, next) => {
   delete request.body.profile.owner
   const updatedProfile = request.body.profile
 
