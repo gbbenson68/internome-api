@@ -19,6 +19,7 @@ const Profile = require('../models/profile')
 // Create a user profile
 router.post('/profiles', requireToken, (request, response, next) => {
   const newProfile = request.body.profile
+  // console.log(request.body)
   Profile.create({
     name: newProfile.name,
     duration: newProfile.duration,
@@ -34,11 +35,12 @@ router.post('/profiles', requireToken, (request, response, next) => {
 
 // Get a list of all profiles for a given user
 router.get('/profiles', requireToken, (request, response, next) => {
+  // console.log(request)
   Profile.find()
     .then((profiles) => {
       return profiles.map((profile) => profile.toObject())
     })
-    // Need to ONLY return those profiles belonging to given user, no others. 
+    // Need to ONLY return those profiles belonging to given user, no others.
     .then((profiles) => {
       const newProfiles = []
       profiles.forEach((profile) => {
