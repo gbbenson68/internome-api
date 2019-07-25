@@ -148,7 +148,7 @@ _Feel free to contact me at guy dot b dot benson at gmail dot com if you've foun
 *   There are no bugs on the Back End, as far as I'm aware.
 
 #### To-Dos
-*   I would like to add fields for numItervals and intervalType at some stage, which would be used to specify the number of intervals (peaks) in the routine and what kind of routne - sinusoidal vs. square wave, for example.
+*   I would like to add fields for ```numItervals``` and ```intervalType``` at some stage, which would be used to specify the number of intervals (peaks) in the routine and what kind of routne - sinusoidal vs. square wave, for example.
 
 _Please check the experimental branch for the latest goings-on!_
 
