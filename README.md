@@ -6,9 +6,17 @@ The best way to increase endurance in any given physical activity is via interva
 
 It is hoped that this application will remedy at least some of the this frustration. The basic idea is to have the application play metronomic clicks at increasing and decreasing tempo, allowing the practitioner to practice ruduments or patterns (or scales) to intervals to increase endurance and dexterity.
 
+For more information on interval training, please visit the Wikipedia site [here](https://en.wikipedia.org/wiki/Interval_training).
+
 For more information about drumming please visit the [Percussive Arts Society](https://www.pas.org/). NOTE: ALthough a lot of their resources used to be free (to use), you now unfortunately have to be a member to utilize many of their resources.
 
 For notes about the Client, please see the README [here](https://github.com/gbbenson68/internome-client).
+
+Relevant Links
+--------------
+*   The **client repository** can be found [here](https://github.com/gbbenson68/internome-client).
+*   The **deployed client** can be found [here](https://gbbenson68.github.io/internome-client/).
+*   The **deployed API** can be found [here](https://tranquil-everglades-98645.herokuapp.com/). _(NOTE: Due to the way Heroku works, you will only get be able to get the following response:_ ```Cannot GET /```_.)_
 
 Technologies Used
 -----------------
@@ -28,9 +36,9 @@ Development and Planning (Back End Notes)
 -----------------------------------------
 For the greater description of overall planning and development, please see the [Development and Planning](https://github.com/gbbenson68/internome-client#development-and-planning) section in the Client README. Herein contains only specific notes regarding the Back End.
 
-*   The development of the API end points was fairly straighforward, as there was only one resource other than USERS to implement. I also had a very clear idea of what I wanted to happen before coding began.
+*   The development of the API end points was somewhat straighforward, as there was only one resource other than USERS to implement. I also had a very clear idea of what I wanted to happen before coding began, so implementation went rather smoothly. I knew, for example, that I wanted GET, POST, PATCH and DELETE routes; with the GET routes being a SHOW of a given resource and an INDEX of only those profiles owned by the given user.  
 
-*   There is very little logic on the back end - the routes were kept as simple as possible to keep the application logic in the upstream application. However, since it is implemented in JavaScript using Mongoose and MongoDB, it can be easily and quickly extended.
+*   There is very little logic on the back end - the routes were kept as simple as possible to keep the application logic in the upstream application. The most difficult part was making sure that the INDEX GET retrieved only the profiles owned by the given user. Additionally, since it is implemented in JavaScript using Mongoose and MongoDB, it can be easily and quickly extended.
 
 Entity-Relationship-Diagram
 ---------------------------
@@ -138,6 +146,22 @@ lib
 *   ```error_handler.js``` - holds library methods for custom errors
 
 *   ```remove_blank_fields.js``` - holds library methods for forms
+
+Installation and Deployment Instructions
+-------------------------
+Before you attempt to install and deploy this API, please ensure that you have the following software installed on your machine of choice (NOTE: These instructions apply mainly for Linux or macOS X systems. For Windows systems, you may want to think about [Cygwin](http://www.cygwin.com/) or [Git for Windows](https://gitforwindows.org/).):
+*   git CLI - installation instructions [here](https://git-scm.com/book/en/v2/Getting-Started-Installing-Git).
+*   [Node.js](https://nodejs.org/en/download/) - contains the Node Package Manager (npm).
+*   [MongoDB](https://www.mongodb.com/download-center/community) - Only necessary for development in a local environment.
+*   [Heroku](https://devcenter.heroku.com/articles/git) - read these instructions if you wish to deploy the API on Heroku.
+*   C/C++ compiler - most modern computer languages are actually implemented in C or C++, so it would be wise to install a C/C++ compiler, the most popular being [gcc/g++](https://gcc.gnu.org/) on Linux and macOS X.
+*   [curl](https://curl.haxx.se/download.html) - to test the installation, you can use the provided ```curl``` scripts.
+
+1.  From this GitHub repository, [fork](https://help.github.com/en/articles/fork-a-repo) and [clone](https://help.github.com/en/articles/cloning-a-repository) into your local environment.
+2.  Change into (```cd```) the root directory of the cloned repository and execute ```npm install```. This will install any required Node.js modules. The npm is fairly verbose, so if there are any missing modules, you will be notified.
+3.  For local installations, ensure that you have ```nodemon``` installed: ```npm install -g nodemon```. You can then run the server in a local environment by running ```nodemon server.js | tee -a nodemon.log```.
+4.  To deploy on Heroku (assuming that you first have a Heroku account), make sure that you've deployed your code as per the directions in the lin above. Additionally, you will need to set up a MongoDB sandbox. To do so, execute ```heroku addons:create mongolab:sandbox``` from the root directory.
+5.  To test the installation, run the provided curl scripts.
 
 
 Known Bugs and To-dos
