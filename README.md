@@ -6,6 +6,8 @@ The best way to increase endurance in any given physical activity is via interva
 
 It is hoped that this application will remedy at least some of the this frustration. The basic idea is to have the application play metronomic clicks at increasing and decreasing tempo, allowing the practitioner to practice ruduments or patterns (or scales) to intervals to increase endurance and dexterity.
 
+In general, the user should be allowed to specify a tempo range (minimum and maximum tempo) and a duration, and the temp would be varied from low to high and back to low again via a sinusoidal function. In the future, the user should also be able to specify the number of intervals and also the interval type (sinusoid vs square wave, for example). Additionally, the intervals should be displayed so that the user can better visualize at what tempo they are playing and what they will be playing next. 
+
 For more information on interval training, please visit the Wikipedia site [here](https://en.wikipedia.org/wiki/Interval_training).
 
 For more information about drumming please visit the [Percussive Arts Society](https://www.pas.org/). NOTE: ALthough a lot of their resources used to be free (to use), you now unfortunately have to be a member to utilize many of their resources.
@@ -36,7 +38,7 @@ Development and Planning (Back End Notes)
 -----------------------------------------
 For the greater description of overall planning and development, please see the [Development and Planning](https://github.com/gbbenson68/internome-client#development-and-planning) section in the Client README. Herein contains only specific notes regarding the Back End.
 
-*   The development of the API end points was somewhat straighforward, as there was only one resource other than USERS to implement. I also had a very clear idea of what I wanted to happen before coding began, so implementation went rather smoothly. I knew, for example, that I wanted GET, POST, PATCH and DELETE routes; with the GET routes being a SHOW of a given resource and an INDEX of only those profiles owned by the given user.  
+*   The development of the API end points was somewhat straighforward, as there was only one resource other than USERS to implement. I also had a very clear idea of what I wanted to happen before coding began, so implementation went rather smoothly. I knew, for example, that I wanted GET, POST, PATCH and DELETE routes; with the GET routes being a SHOW of a given resource and an INDEX of only those profiles owned by the given user.
 
 *   There is very little logic on the back end - the routes were kept as simple as possible to keep the application logic in the upstream application. The most difficult part was making sure that the INDEX GET retrieved only the profiles owned by the given user. Additionally, since it is implemented in JavaScript using Mongoose and MongoDB, it can be easily and quickly extended.
 
