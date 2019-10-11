@@ -15,7 +15,7 @@ fi
 BASE_URL=${1}
 
 # echo "BASE_URL = ${BASE_URL}"
-# echo "PROF_TOKEN = ${PROF_TOKEN}"
+# echo "USER_TOKEN = ${USER_TOKEN}"
 
 curl "${BASE_URL}/profiles" \
   --include \
