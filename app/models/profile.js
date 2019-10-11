@@ -17,6 +17,14 @@ const profileSchema = new mongoose.Schema({
     type: Number,
     required: true
   },
+  numIntervals: {
+    type: Number,
+    required: true
+  },
+  intervalType: {
+    type: Number,
+    required: true
+  },
   owner: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'User',

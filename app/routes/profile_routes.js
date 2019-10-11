@@ -85,7 +85,9 @@ router.patch('/profiles/:id', requireToken, removeBlanks, (request, response, ne
         name: updatedProfile.name,
         duration: updatedProfile.duration,
         minTempo: updatedProfile.minTempo,
-        maxTempo: updatedProfile.maxTempo
+        maxTempo: updatedProfile.maxTempo,
+        numIntervals: updatedProfile.numIntervals,
+        intervalType: updatedProfile.intervalType
       })
     })
     .then(() => response.sendStatus(204))
