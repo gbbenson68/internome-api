@@ -16,6 +16,7 @@ else
   exit -1
 fi
 
+# Check for existence of envirnmental variables.
 RETVAL=$(check_list "${ENV_VARS}")
 if [ ${RETVAL} -eq 0 ]
 then
@@ -27,6 +28,7 @@ then
   exit -1
 fi
 
+# Basic usage check.
 if [ $# -ne 1 ]
 then
   echo
