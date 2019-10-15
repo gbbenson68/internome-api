@@ -9,8 +9,8 @@ then
   echo '        following variables must also be set in the environment:'
   echo
   echo '           USER_TOKEN - user authentication token'
-  echo '           USER_OLDPASSWD - old user password'
-  echo '           USER_NEWPASSWD - new user password'
+  echo '           USER_PASSWORD - old user password'
+  echo '           USER_PASSWORD_NEW - new user password'
   echo
   exit 1
 fi
@@ -20,8 +20,8 @@ URL_PATH="/sign-out"
 
 # echo "BASE_URL = ${BASE_URL}"
 # echo "USER_TOKEN = ${USER_TOKEN}"
-# echo "USER_OLDPASSWD = ${USER_OLDPASSWD}"
-# echo "USER_NEWPASSWD = ${USER_NEWPASSWD}"
+# echo "USER_PASSWORD = ${USER_PASSWORD}"
+# echo "USER_PASSWORD_NEW = ${USER_NEWPASSWD}"
 
 curl "${BASE_URL}${URL_PATH}" \
   --include \
@@ -30,8 +30,8 @@ curl "${BASE_URL}${URL_PATH}" \
   --header "Content-Type: application/json" \
   --data '{
     "passwords": {
-      "old": "'"${USER_OLDPASSWD}"'",
-      "new": "'"${USER_NEWPASSWD}"'"
+      "old": "'"${USER_PASSWORD}"'",
+      "new": "'"${USER_PASSWORD_NEW}"'"
     }
   }'
 
