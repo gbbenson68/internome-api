@@ -21,7 +21,7 @@ RETVAL=$(check_list "${ENV_VARS}")
 if [ ${RETVAL} -eq 0 ]
 then
   echo
-  echo "***** ERROR: One or more of the following ENVIRONMENTAL VARIABLES not set:"
+  echo "***** ERROR: One or more of the following environmental variables not set:"
   echo
   echo "$(list_vars "${ENV_VARS}")"
   echo
