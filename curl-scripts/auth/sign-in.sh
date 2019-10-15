@@ -1,17 +1,43 @@
 #!/bin/bash
 
+ENV_VARS='
+PARENT_PID
+USER_EMAIL
+USER_PASSWORD
+'
+
+# Source library functions
+THISDIR=$(dirname $0)
+RELPATH='../lib/lib_funcs.sh'
+if [ -r ${THISDIR}/${RELPATH} ]
+then
+  . ${THISDIR}/${RELPATH}
+else
+  printf "\n\t***** ERROR: Library functions not found!\n\n"
+  exit -1
+fi
+
+# Check for existence of envirnmental variables.
+RETVAL=$(check_list "${ENV_VARS}")
+if [ ${RETVAL} -eq 0 ]
+then
+  echo
+  echo "***** ERROR: One or more of the following ENVIRONMENTAL VARIABLES not set:"
+  echo
+  echo "$(list_vars "${ENV_VARS}")"
+  echo
+  exit -1
+fi
+
+# Basic usage check.
 if [ $# -ne 1 ]
 then
   echo
-  echo 'Usage: ${0} <BASE_URL>'
+  echo "Usage: $(basename ${0}) <BASE_URL>"
   echo
-  echo '  NOTE: Although the BASE_URL is the only variable specified on the command line, the'
-  echo '        following variables must also be set in the environment:'
+  echo "     Example: $(basename ${0}) http://localhost:4741"
   echo
-  echo '           USER_EMAIL - user email address'
-  echo '           USER_PASSWORD - user password'
-  echo
-  exit 1
+  exit -1
 fi
 
 BASE_URL=${1}
@@ -21,7 +47,8 @@ URL_PATH="/sign-in"
 # echo "USER_EMAIL = ${USER_EMAIL}"
 # echo "USER_PASSWORD = ${USER_PASSWORD}"
 
-curl "${BASE_URL}${URL_PATH}" \
+# Output result to screen and result variable, so we can parse for user token
+result=$(curl "${BASE_URL}${URL_PATH}" \
   --include \
   --request POST \
   --header "Content-Type: application/json" \
@@ -30,6 +57,9 @@ curl "${BASE_URL}${URL_PATH}" \
       "email": "'"${USER_EMAIL}"'",
       "password": "'"${USER_PASSWORD}"'"
     }
-  }'
+  }' | tee /dev/tty)
+
+token_str=$(echo "${result}" | grep '^{')
+get_user_token "${token_str}" > ${USER_TOKEN_FILENAME_PRE}-${PARENT_PID}.txt
 
 echo
