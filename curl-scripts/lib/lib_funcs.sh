@@ -27,7 +27,7 @@ check_list() {
 }
 
 # List the environmental vbariables that should be specified
-list_vars () {
+list_vars() {
   list=${1}
   for var in ${list}
   do
