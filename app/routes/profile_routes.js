@@ -25,6 +25,8 @@ router.post('/profiles', requireToken, (request, response, next) => {
     duration: newProfile.duration,
     minTempo: newProfile.minTempo,
     maxTempo: newProfile.maxTempo,
+    numIntervals: newProfile.numIntervals,
+    intervalType: newProfile.intervalType,
     owner: request.user.id
   })
     .then((profile) => {
