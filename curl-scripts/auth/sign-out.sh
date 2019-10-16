@@ -59,4 +59,6 @@ curl "${BASE_URL}${URL_PATH}" \
   --request DELETE \
   --header "Authorization: Token token=${USER_TOKEN}"
 
+rm -f ${USER_TOKEN_FILE}
+
 echo
