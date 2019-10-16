@@ -2,6 +2,7 @@
 
 ENV_VARS='
 PARENT_PID
+BASE_URL
 '
 
 # Source library functions
@@ -37,18 +38,17 @@ then
 fi
 
 # Basic usage check.
-if [ $# -ne 2 ]
+if [ $# -ne 1 ]
 then
   echo
-  echo "Usage: $(basename ${0}) <BASE_URL> <PROFILE_ID>"
+  echo "Usage: $(basename ${0}) <PROFILE_ID>"
   echo
-  echo "     Example: $(basename ${0}) http://localhost:4741 5da681347044644bb702ec95"
+  echo "     Example: $(basename ${0}) 5da681347044644bb702ec95"
   echo
   exit 1
 fi
 
-BASE_URL=${1}
-PROFILE_ID=${2}
+PROFILE_ID=${1}
 USER_TOKEN=$(cat ${USER_TOKEN_FILE})
 
 # echo "BASE_URL = ${BASE_URL}"

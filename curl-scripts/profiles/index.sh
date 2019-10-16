@@ -2,6 +2,7 @@
 
 ENV_VARS='
 PARENT_PID
+BASE_URL
 '
 
 # Source library functions
@@ -36,18 +37,6 @@ then
   exit 1
 fi
 
-# Basic usage check.
-if [ $# -ne 1 ]
-then
-  echo
-  echo "Usage: $(basename ${0}) <BASE_URL>"
-  echo
-  echo "     Example: $(basename ${0}) http://localhost:4741"
-  echo
-  exit 1
-fi
-
-BASE_URL=${1}
 USER_TOKEN=$(cat ${USER_TOKEN_FILE})
 
 # echo "BASE_URL = ${BASE_URL}"
