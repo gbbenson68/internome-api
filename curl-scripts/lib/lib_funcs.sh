@@ -6,7 +6,8 @@ USER_TOKEN_FILENAME_PRE=/tmp/env-internome-api-USER_TOKEN
 # Check to see if the given environmental variable exists
 check_env_var() {
   var=${1}
-  if [ -z $(printenv ${var}) ]
+  check_var=$(printenv ${var})
+  if [ -z "${check_var}" ]
   then
     echo 0
   else
