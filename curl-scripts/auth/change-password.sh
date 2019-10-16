@@ -14,7 +14,7 @@ then
   . ${THISDIR}/${RELPATH}
 else
   printf "\n\t***** ERROR: Library functions not found!\n\n"
-  exit -1
+  exit 1
 fi
 
 # Check for existence of envirnmental variables.
@@ -26,7 +26,7 @@ then
   echo
   echo "$(list_vars "${ENV_VARS}")"
   echo
-  exit -1
+  exit 1
 fi
 
 # Check for USER_TOKEN tempfile
@@ -35,7 +35,7 @@ if [ ! -r ${USER_TOKEN_FILE} ]
 then
   printf "\n\t***** ERROR: USER_TOKEN temp file not found!\n"
   printf "\t      Please make sure you're signed in first.\n\n"
-  exit -1
+  exit 1
 fi
 
 # Basic usage check.
@@ -50,7 +50,7 @@ then
   echo "     and USER_PASSWORD_NEW, to enable multiple tests to be run with the"
   echo "     same two passwords."
   echo
-  exit -1
+  exit 1
 fi
 
 BASE_URL=${1}

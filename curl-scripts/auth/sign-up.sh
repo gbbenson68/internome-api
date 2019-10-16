@@ -13,7 +13,7 @@ then
   . ${THISDIR}/${RELPATH}
 else
   printf "\n\t***** ERROR: Library functions not found!\n\n"
-  exit -1
+  exit 1
 fi
 
 # Check for existence of envirnmental variables.
@@ -25,7 +25,7 @@ then
   echo
   echo "$(list_vars "${ENV_VARS}")"
   echo
-  exit -1
+  exit 1
 fi
 
 # Basic usage check.
@@ -36,7 +36,7 @@ then
   echo
   echo "     Example: $(basename ${0}) http://localhost:4741"
   echo
-  exit -1
+  exit 1
 fi
 
 BASE_URL=${1}
