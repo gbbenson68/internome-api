@@ -31,7 +31,8 @@ fi
 USER_TOKEN_FILE=${USER_TOKEN_FILENAME_PRE}-${PARENT_PID}.txt
 if [ ! -r ${USER_TOKEN_FILE} ]
 then
-  printf "\n\t***** ERROR: USER_TOKEN temp file not found!\n\n"
+  printf "\n\t***** ERROR: USER_TOKEN temp file not found!\n"
+  printf "\t      Please make sure you're signed in first.\n\n"
   exit -1
 fi
 
