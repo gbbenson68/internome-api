@@ -2,8 +2,7 @@
 
 ENV_VARS='
 PARENT_PID
-USER_EMAIL
-USER_PASSWORD
+BASE_URL
 '
 
 # Source library functions
@@ -30,17 +29,18 @@ then
 fi
 
 # Basic usage check.
-if [ $# -ne 1 ]
+if [ $# -ne 2 ]
 then
   echo
-  echo "Usage: $(basename ${0}) <BASE_URL>"
+  echo "Usage: $(basename ${0}) <USER_EMAIL> <USER_PASSWORD>"
   echo
-  echo "     Example: $(basename ${0}) http://localhost:4741"
+  echo "     Example: $(basename ${0}) email@email somepw"
   echo
   exit 1
 fi
 
-BASE_URL=${1}
+USER_EMAIL=${1}
+USER_PASSWORD=${2}
 URL_PATH="/sign-in"
 
 # echo "BASE_URL = ${BASE_URL}"

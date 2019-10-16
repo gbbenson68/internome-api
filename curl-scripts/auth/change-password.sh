@@ -2,8 +2,7 @@
 
 ENV_VARS='
 PARENT_PID
-USER_PASSWORD
-USER_PASSWORD_NEW
+BASE_URL
 '
 
 # Source library functions
@@ -39,31 +38,21 @@ then
 fi
 
 # Basic usage check.
-if [ $# -ne 2 ]
+if [ $# -ne 3 ]
 then
   echo
-  echo "Usage: $(basename ${0}) <BASE_URL> <0|1>"
+  echo "Usage: $(basename ${0}) <USER_EMAIL> <USER_PASSWORD> <USER_NEWPASSWD>"
   echo
-  echo "     Example: $(basename ${0}) http://localhost:4741 0"
-  echo
-  echo "     The \"swap flag\", when set to 1, swaps the values of USER_PASSWORD"
-  echo "     and USER_PASSWORD_NEW, to enable multiple tests to be run with the"
-  echo "     same two passwords."
+  echo "     Example: $(basename ${0}) email@email somepw somenewpw"
   echo
   exit 1
 fi
 
-BASE_URL=${1}
-SWAP=${2}
+USER_EMAIL=${1}
+USER_PASSWORD=${2}
+USER_NEWPASSWD=${3}
 URL_PATH="/change-password"
 USER_TOKEN=$(cat ${USER_TOKEN_FILE})
-
-if [ ${SWAP} -eq 1 ]
-then
-  temp=USER_PASSWORD_NEW
-  USER_PASSWORD_NEW=${USER_PASSWORD}
-  USER_PASSWORD=${temp}
-fi
 
 # echo "BASE_URL = ${BASE_URL}"
 # echo "USER_TOKEN = ${USER_TOKEN}"
