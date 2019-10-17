@@ -2,12 +2,7 @@
 
 ENV_VARS='
 PARENT_PID
-PROFILE_NAME
-PROFILE_DURATION
-PROFILE_MINTEMPO
-PROFILE_MAXTEMPO
-PROFILE_NUM_INTERVALS
-PROFILE_INTERVAL_TYPE
+BASE_URL
 '
 
 # Source library functions
@@ -43,17 +38,22 @@ then
 fi
 
 # Basic usage check.
-if [ $# -ne 1 ]
+if [ $# -ne 6 ]
 then
   echo
-  echo "Usage: $(basename ${0}) <BASE_URL>"
+  echo "Usage: $(basename ${0}) <PROFILE_NAME> <PROFILE_DURATION> <PROFILE_MINTEMPO> <PROFILE_MAXTEMPO> <PROFILE_NUM_INTERVALS> <PROFILE_INTERVAL_TYPE>"
   echo
-  echo "     Example: $(basename ${0}) http://localhost:4741"
+  echo "     Example: $(basename ${0}) 'Test Profile' 25 40 120 3 1"
   echo
   exit 1
 fi
 
-BASE_URL=${1}
+PROFILE_NAME=${1}
+PROFILE_DURATION=${2}
+PROFILE_MINTEMPO=${3}
+PROFILE_MAXTEMPO=${4}
+PROFILE_NUM_INTERVALS=${5}
+PROFILE_INTERVAL_TYPE=${6}
 USER_TOKEN=$(cat ${USER_TOKEN_FILE})
 
 # echo "BASE_URL = ${BASE_URL}"
