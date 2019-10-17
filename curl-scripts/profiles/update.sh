@@ -1,44 +1,85 @@
 #!/bin/bash
 
-if [ $# -ne 1 ]
+ENV_VARS='
+PARENT_PID
+BASE_URL
+'
+
+# Source library functions
+THISDIR=$(dirname $0)
+RELPATH='../lib/lib_funcs.sh'
+if [ -r ${THISDIR}/${RELPATH} ]
+then
+  . ${THISDIR}/${RELPATH}
+else
+  printf "\n\t***** ERROR: Library functions not found!\n\n"
+  exit 1
+fi
+
+# Check for existence of envirnmental variables.
+RETVAL=$(check_list "${ENV_VARS}")
+if [ ${RETVAL} -eq 0 ]
 then
   echo
-  echo 'Usage: ${0} <BASE_URL>'
+  echo "***** ERROR: One or more of the following ENVIRONMENTAL VARIABLES not set:"
   echo
-  echo '  NOTE: Although the BASE_URL is the only variable specified on the command line, the'
-  echo '        following variables must also be set in the environment:'
-  echo
-  echo '           USER_TOKEN - user authentication token'
-  echo '           PROF_NAME - name of the profile'
-  echo '           PROF_ID - ID of the profile'
-  echo '           PROF_DURATION - profile duration (in seconds)'
-  echo '           PROF_MINTEMPO - minimum tempo (in beats per minute)'
-  echo '           PROF_MAXTEMPO - in beats per minute'
+  echo "$(list_vars "${ENV_VARS}")"
   echo
   exit 1
 fi
 
-BASE_URL=${1}
+# Check for USER_TOKEN tempfile
+USER_TOKEN_FILE=${USER_TOKEN_FILENAME_PRE}-${PARENT_PID}.txt
+if [ ! -r ${USER_TOKEN_FILE} ]
+then
+  printf "\n\t***** ERROR: USER_TOKEN temp file not found!\n"
+  printf "\t      Please make sure you're signed in first.\n\n"
+  exit 1
+fi
 
-# echo "PROF_BASE_URL = ${PROF_BASE_URL}"
-# echo "PROF_ID = ${PROF_ID}"
+# Basic usage check.
+if [ $# -ne 7 ]
+then
+  echo
+  echo "Usage: $(basename ${0}) <PROFILE_ID> <PROFILE_NAME> <PROFILE_DURATION> <PROFILE_MINTEMPO> <PROFILE_MAXTEMPO> <PROFILE_NUM_INTERVALS> <PROFILE_INTERVAL_TYPE>"
+  echo
+  echo "     Example: $(basename ${0}) 5da682787044644bb702ec96 'Test Profile' 25 40 120 3 1"
+  echo
+  exit 1
+fi
+
+PROFILE_ID=${1}
+PROFILE_NAME=${2}
+PROFILE_DURATION=${3}
+PROFILE_MINTEMPO=${4}
+PROFILE_MAXTEMPO=${5}
+PROFILE_NUM_INTERVALS=${6}
+PROFILE_INTERVAL_TYPE=${7}
+USER_TOKEN=$(cat ${USER_TOKEN_FILE})
+
+# echo "BASE_URL = ${BASE_URL}"
+# echo "PROFILE_ID = ${PROFILE_ID}"
 # echo "USER_TOKEN = ${USER_TOKEN}"
-# echo "PROF_NAME = ${PROF_NAME}"
-# echo "PROF_DURATION = ${PROF_DURATION}"
-# echo "PROF_MINTEMPO = ${PROF_MINTEMPO}"
-# echo "PROF_MAXTEMPO = ${PROF_MAXTEMPO}"
+# echo "PROFILE_NAME = ${PROFILE_NAME}"
+# echo "PROFILE_DURATION = ${PROFILE_DURATION}"
+# echo "PROFILE_MINTEMPO = ${PROFILE_MINTEMPO}"
+# echo "PROFILE_MAXTEMPO = ${PROFILE_MAXTEMPO}"
+# echo "PROFILE_NUM_INTERVALS = ${PROFILE_NUM_INTERVALS}"
+# echo "PROFILE_INTERVAL_TYPE = ${PROFILE_INTERVAL_TYPE}"
 
-curl "${BASE_URL}/profiles/${PROF_ID}" \
+curl "${BASE_URL}/profiles/${PROFILE_ID}" \
   --include \
   --request PATCH \
   --header "Content-Type: application/json" \
   --header "Authorization: Bearer ${USER_TOKEN}" \
   --data '{
     "profile": {
-      "name": "'"${PROF_NAME}"'",
-      "duration": "'"${PROF_DURATION}"'",
-      "minTempo": "'"${PROF_MINTEMPO}"'",
-      "maxTempo": "'"${PROF_MAXTEMPO}"'"
+      "name": "'"${PROFILE_NAME}"'",
+      "duration": "'"${PROFILE_DURATION}"'",
+      "minTempo": "'"${PROFILE_MINTEMPO}"'",
+      "maxTempo": "'"${PROFILE_MAXTEMPO}"'",
+      "numIntervals": "'"${PROFILE_NUM_INTERVALS}"'",
+      "intervalType": "'"${PROFILE_INTERVAL_TYPE}"'"
     }
   }'
 
